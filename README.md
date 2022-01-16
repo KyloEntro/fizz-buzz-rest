@@ -35,15 +35,22 @@ This version is a simple implementation. Only a web server written with Python a
 You need Python 3 and Flask library. You can create a virtual environment for Python. You can download Python in : https://www.python.org/downloads/
 This code was tested with Python3.8 on Mac
 
-To make a virtual environment :
+To make a virtual environment:
 
 ```sh
 python3 -m venv myenv
 source myenv/bin/activate
 ```
 
-To install all python requirements, use this command :
+To install all python requirements, use this command:
 
 ```sh
 pip3 install -r requirements.txt
+```
+
+To run the webserver:
+
+```sh
+cd webserver
+python main.py
 ```
