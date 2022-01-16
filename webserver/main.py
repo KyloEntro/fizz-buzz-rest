@@ -5,6 +5,7 @@ from flask_cors import CORS
 from waitress import serve
 import logging
 import logging.config
+import os
 
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger('root')
@@ -45,7 +46,11 @@ def get_statistic():
 
 
 if __name__ == "__main__":
-    port = 13123
+    # Get IP address and port from system environment variable
+    IP_ADDRESS = os.getenv("IP_ADDRESS") if os.getenv(
+        "IP_ADDRESS") is not None else "0.0.0.0"
+    PORT = os.getenv("PORT") if os.getenv("PORT") is not None else "8080"
+
     logger.info(
-        f"Start to serve the application with ip = {port} and port = {port}")
-    serve(app, host='0.0.0.0', port=8080)
+        f"Start to serve the application with ip = {IP_ADDRESS} and port = {PORT}")
+    serve(app, host=IP_ADDRESS, port=PORT)
