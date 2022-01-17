@@ -1,0 +1,28 @@
+services:
+  database:
+    image: mongo:latest
+    volumes:
+      - "./docker_data/mongo:/data/db"
+    ports:
+      - "27017:27017"
+    restart: always
+  api_documentation:
+    image: swaggerapi/swagger-ui:latest
+    ports:
+      - "8081:8080"
+    volumes:
+      - "./doc/api.json:/api.json"
+    environment:
+      - SWAGGER_JSON=/api.json
+    restart: always
+  webserver:
+    depends_on: 
+      - database
+    ports:
+      - "8082:8080"
+    build: ./webserver
+    environment:
+      - DB_IP_ADDRESS=host.docker.internal
+      - PYTHONUNBUFFERED=0
+    volumes:
+      - "./docker_data/webserver:/app/logs"
