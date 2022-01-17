@@ -38,7 +38,7 @@ def fizzbuzz(int1: int, str1: str, int2: int, str2: str, limit: int):
 def get_statistic():
     logger.info(f"New request to get statistic")
     result = database.get_stats()
-    print(result)
+    result.sort(key=lambda x: x["count"], reverse=True)
     return jsonify(result)
 
 
