@@ -1,0 +1,130 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Fizz buzz API documentation",
+      "version": "1.0.0"
+    },
+    "servers": [{
+        "url": "http://127.0.0.1:8080"
+    }],
+    "paths": {
+        "/fizzbuzz/{int1}/{str1}/{int2}/{str2}/{limit}": {
+            "get": {
+                "summary": "Get a list of strings with numbers from 1 to limit",
+                "description": "Get a list of strings with numbers from 1 to limit, where: all multiples of int1 are replaced by str1, all multiples of int2 are replaced by str2, all multiples of int1 and int2 are replaced by str1str2.",
+                "operationId": "GetFizzBuzz",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "int1",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "str1",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "int2",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "str2",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],  
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/statistic": {
+            "get": {
+                "summary": "Get statistics about many requests received group by parameters",
+                "operationId": "GetStatistic",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/statisticItem"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "statisticItem": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "description": "Unique key to identify set of parameters pass to /fizzbuzz API"
+                    },
+                    "int1": {
+                        "type": "integer",
+                        "description": "Value of int1 given to /fizzbuzz API"
+                    },
+                    "str1": {
+                        "type": "string",
+                        "description": "Value of str1 given to /fizzbuzz API"
+                    },
+                    "int2": {
+                        "type": "integer",
+                        "description": "Value of int2 given to /fizzbuzz API"
+                    },
+                    "str2": {
+                        "type": "string",
+                        "description": "Value of str2 given to /fizzbuzz API"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "Value of limit given to /fizzbuzz API"
+                    }
+                }
+            }
+        }
+    }
+}
