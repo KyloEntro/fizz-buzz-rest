@@ -38,7 +38,8 @@ def fizzbuzz(int1: int, str1: str, int2: int, str2: str, limit: int):
 def get_statistic():
     logger.info(f"New request to get statistic")
     result = database.get_stats()
-    result.sort(key=lambda x: x["count"], reverse=True)
+    result.sort(key=lambda x: x.count, reverse=True)
+    result = [vars(item) for item in result]
     return jsonify(result)
 
 
@@ -67,6 +68,7 @@ if __name__ == "__main__":
     DB_PASSWORD = os.getenv("DB_USERNAME") if os.getenv(
         "DB_USERNAME") is not None else ""
 
+    logger.info("Try to connect to database")
     database = connect_database(
         DB_IP_ADDRESS, DB_PORT, DB_USERNAME, DB_PASSWORD)
 
