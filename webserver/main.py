@@ -7,6 +7,7 @@ import logging
 import logging.config
 import os
 import db
+import services.fizzbuzz
 
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger('root')
@@ -23,19 +24,8 @@ def fizzbuzz(int1: int, str1: str, int2: int, str2: str, limit: int):
     logger.info(
         f"New request with param : int1 => {int1}; str1 => {str1}; int2 => {int2}; str2 => {str2}; limit => {limit}")
 
-    result = []
-
-    for index in range(1, limit + 1):
-        resultStr = ""
-        if index % int1 == 0:
-            resultStr += str1
-        if index % int2 == 0:
-            resultStr += str2
-
-        if len(resultStr) == 0:
-            resultStr = str(index)
-
-        result.append(resultStr)
+    result = services.fizzbuzz.generate_fizz_buzz_string(
+        int1, str1, int2, str2, limit)
 
     if database is not None:
         database.insert_stat(db.StatItem(int1, str1, int2, str2, limit))
